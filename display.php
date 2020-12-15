@@ -99,6 +99,15 @@
 
     #back_but {
         margin-left: 20px;
+ 
+    }
+
+
+    @media screen and (min-width:1200px) {
+           #main_box{
+             width:1124px; 
+             margin:auto; 
+           }
     }
 
     @media screen and (max-width:900px) {
@@ -170,8 +179,9 @@
 
     ?>
 
-
+  <div id="main_box">
     <div id="form_boundary">
+
 
         <form action="" method="GET" enctype="multipart/form-data">
             <?php
@@ -297,7 +307,7 @@
                         while ($row = $result->fetch_assoc()) {
                             $temp_name = "";
                             split_with_file_name($row['path_name'], $temp_name);
-                            $prefix = "--youtube--";
+                            $prefix = "--external--";
                             $file_name=$temp_name; 
                             $len1 = strlen($prefix);
                             $len2 = strlen($file_name);
@@ -307,6 +317,7 @@
                                     break;
                                 }
                             }
+                        
                             if ($i == $len1 && file_exists($row['path_name'])) {
                                 //file contain url of youtube
                                 $fh = fopen($row['path_name'], "r");
@@ -334,6 +345,10 @@
 
         </form>
 
-</body>
+
+
+
+        </div> 
+     </body>
 
 </html>

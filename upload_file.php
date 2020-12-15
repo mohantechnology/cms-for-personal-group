@@ -362,6 +362,17 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
         background-color: rgb(212, 212, 230);
         padding: 2px 10px;
     }
+   #message{
+              padding:23px ; 
+           }
+    @media screen and (min-width:1200px) {
+           #main_box{
+             width:1124px; 
+             margin:auto; 
+           }
+        
+    }
+
 
     @media screen and (max-width:900px) {
         #form_boundary {
@@ -507,7 +518,8 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
 
     </div>
 
-
+    <div id="main_box">
+   
     <div id="form_boundary">
 
         <form id="form" action="" method="POST" enctype="multipart/form-data">
@@ -598,6 +610,8 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
         </form>
 
 
+    </div>
+         
     </div>
     <script>
         var inp_but = document.getElementById("inp_but");

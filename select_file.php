@@ -3,7 +3,7 @@
 session_start();
 
 
-include "user_password.php"; 
+include "user_password.php";
 if ((!isset($_SESSION["admin_ps"])) ||   $_SESSION["admin_ps"] != $user_password) {
      unset($_POST);
      unset($_FILES);
@@ -26,7 +26,7 @@ if ((!isset($_SESSION["admin_ps"])) ||   $_SESSION["admin_ps"] != $user_password
 }
 
 
-echo'<!DOCTYPE html>
+echo '<!DOCTYPE html>
 <html>
 
 <head>
@@ -44,6 +44,7 @@ echo'<!DOCTYPE html>
           margin: 0px;
           text-align: center;
           padding: 0px;
+          min-height: 130vh; 
 
 
      }
@@ -149,7 +150,22 @@ echo'<!DOCTYPE html>
 
      }
 
+     #main_box{
+          width:1165px; 
+          margin:auto; 
+    
+          
+     }
 
+  
+
+     @media screen and (max-width:1200px) {
+
+          #main_box{
+          width:100%; 
+          margin:auto; 
+
+     }
 
      @media screen and (max-width:1000px) {
           .box {
@@ -201,7 +217,7 @@ echo'<!DOCTYPE html>
      <hr>
 
 ';
-
+echo "<div id='main_box'>";
 $flag = 1;
 //  echo $_GET['sub'] ."and ".$_GET['unit'];
 
@@ -213,7 +229,7 @@ $result = $conn->query($sql);
 // print_r($result); 
 if ($result != "" &&  $result->num_rows > 0) {
      $flag = 0;
-     echo ' <div id="id" class="box">
+     echo ' <div  class="box">
    <div class="head">
    Operating System
    </div><div class="box_content">
@@ -233,7 +249,7 @@ $result = $conn->query($sql);
 // print_r($result); 
 if ($result != "" &&  $result->num_rows > 0) {
      $flag = 0;
-     echo ' <div id="id" class="box">
+     echo ' <div  class="box">
    <div class="head">
    Data Structures and Agorithms
    </div><div class="box_content">
@@ -252,7 +268,7 @@ $result = $conn->query($sql);
 // print_r($result); 
 if ($result != "" && $result->num_rows > 0) {
      $flag = 0;
-     echo ' <div id="id" class="box">
+     echo ' <div  class="box">
    <div class="head">
    Principles of Programming Languages
    </div><div  class="box_content">
@@ -270,7 +286,7 @@ $result = $conn->query($sql);
 // print_r($result); 
 if ($result != "" && $result->num_rows > 0) {
      $flag = 0;
-     echo ' <div id="id" class="box">
+     echo ' <div  class="box">
    <div class="head">
         Mathamatics
         </div><div  class="box_content">
@@ -289,7 +305,7 @@ $result = $conn->query($sql);
 // print_r($result); 
 if ($result != "" && $result->num_rows > 0) {
      $flag = 0;
-     echo ' <div id="id" class="box">
+     echo ' <div  class="box">
    <div class="head">
    Digital Electronics
    </div><div  class="box_content">
@@ -307,7 +323,7 @@ if ($result != "" && $result->num_rows > 0) {
 if ($flag) {
      echo "<h1> NO RECORDS FOUND </h1>";
 }
-
+echo "</div>";
 $conn->close();
 ?>
 
@@ -316,4 +332,7 @@ $conn->close();
 <form action="" method="post" id="admin" id="form_box">
      <button type="submit" name="submit" value="back" id="admin_but">Back </button>
      <div></div>
-</form </body> </html>
+</form>
+</body>
+
+</html>

@@ -109,10 +109,22 @@
           background-color: rgb(86, 86, 219);
 
      }
+     #main_box{
+          width:1024px; 
+          margin:auto; 
+    
+          
+     }
 
-
+  
 
      @media screen and (max-width:1000px) {
+
+          #main_box{
+          width:100%; 
+          margin:auto; 
+
+     }
           .box {
                display: block;
                height: unset;
@@ -177,7 +189,7 @@
           $_SESSION['unit'] =  $_GET['unit'];
           header("Location: ./display.php");
      }
-
+     echo "<div id='main_box'>"; 
 
      $flag = 1;
      //  echo $_GET['sub'] ."and ".$_GET['unit'];
@@ -192,7 +204,7 @@
      // print_r($result); 
      if ($result != "" &&  $result->num_rows > 0) {
           $flag = 0;
-          echo ' <div id="id" class="box">
+          echo ' <div  class="box">
    <div class="head">
    Operating System
    </div><div class="box_content">
@@ -212,7 +224,7 @@
      // print_r($result); 
      if ($result != "" &&  $result->num_rows > 0) {
           $flag = 0;
-          echo ' <div id="id" class="box">
+          echo ' <div  class="box">
    <div class="head">
    Data Structures and Agorithms
    </div><div class="box_content">
@@ -231,7 +243,7 @@
      // print_r($result); 
      if ($result != "" && $result->num_rows > 0) {
           $flag = 0;
-          echo ' <div id="id" class="box">
+          echo ' <div  class="box">
    <div class="head">
    Principles of Programming Languages
    </div><div  class="box_content">
@@ -249,7 +261,7 @@
      // print_r($result); 
      if ($result != "" && $result->num_rows > 0) {
           $flag = 0;
-          echo ' <div id="id" class="box">
+          echo ' <div  class="box">
    <div class="head">
         Mathamatics
         </div><div  class="box_content">
@@ -268,7 +280,7 @@
      // print_r($result); 
      if ($result != "" && $result->num_rows > 0) {
           $flag = 0;
-          echo ' <div id="id" class="box">
+          echo ' <div  class="box">
    <div class="head">
    Digital Electronics
    </div><div  class="box_content">
@@ -288,6 +300,8 @@
      }
 
      $conn->close();
+
+     echo "</div>"; 
      ?>
 
      <hr>
@@ -296,6 +310,7 @@
           <button type="submit" name="submit" value="admin" id="admin_but"> Adminstrator </button>
           <div></div>
      </form>
+       
 </body>
 
 </html>

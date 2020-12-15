@@ -47,6 +47,7 @@ $str = '
         color: GREY;
         /* border:0    px solid black; */
         width: 90%;
+        cursor:pointer; 
     }
 
 
@@ -100,6 +101,8 @@ $str = '
 
     button:hover {
         background-color: rgb(86, 86, 219);
+    
+
 
     }
 
@@ -115,18 +118,25 @@ $str = '
         margin-left: 20px;
     }
 
+#conform_box_content{
+ width:500px; 
+//  border:2px solid yellow; 
+    margin:auto ;
+    // height:110px; 
+    // position: relative; 
 
+}
 
     #conform_box {
         word-break: keep-all;
         border: 1px solid black;
         position: fixed;
-        width: 65%;
+        width: 500px;
         /* z-index: 1;; */
         padding: 20px 10px;
      
-        top: -90%;
-        left: 20%;
+        top: -200px; 
+        
         color: white;
         background-color: rgba(0, 0, 0, 0.8);
         transition: 0.5s;
@@ -148,6 +158,19 @@ $str = '
         background-color: green;
     }
 
+
+   
+
+
+    @media screen and (min-width:1200px) {
+        #main_box{
+          width:1124px; 
+          margin:auto; 
+        }
+  
+ }
+
+
     @media screen and (max-width:900px) {
         #form_boundary {
             width: 95%;
@@ -164,6 +187,11 @@ $str = '
             width: 94%;
 
         }
+        #conform_box{
+            width:60%; 
+            left:17%;
+         }
+
 
     }
 
@@ -230,6 +258,8 @@ $str = '
         </div>
 
     </div>
+
+    <div id="main_box">
     <div id="form_boundary">
 
         <form action="" method="GET" enctype="multipart/form-data">
@@ -318,7 +348,7 @@ if (isset($_SESSION['sub']) && isset($_SESSION['unit'])) {
 
 ?>
 <button id="back_but" type="submit" name="back" value="true"> Back</button></a>
-
+</div>
 </form>
 
 
@@ -337,7 +367,7 @@ if (isset($_SESSION['sub']) && isset($_SESSION['unit'])) {
     }
 
     yes_but.addEventListener("click", function() {
-        conform_box.style.top = "-90%"
+        conform_box.style.top = "-200px"; 
         if (parameter != "") {
             document.getElementById("load").innerHTML = "<p style='text-align:center;'> Loading... </p> ";
             send_xhttp_request(parameter);
@@ -347,7 +377,7 @@ if (isset($_SESSION['sub']) && isset($_SESSION['unit'])) {
     });
 
     no_but.addEventListener("click", function() {
-        conform_box.style.top = "-90%"
+        conform_box.style.top = "-200px"
     });
 
 
