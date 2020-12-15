@@ -120,10 +120,9 @@ $str = '
 
 #conform_box_content{
  width:500px; 
-//  border:2px solid yellow; 
+
     margin:auto ;
-    // height:110px; 
-    // position: relative; 
+ 
 
 }
 

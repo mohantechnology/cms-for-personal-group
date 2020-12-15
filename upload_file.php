@@ -65,7 +65,7 @@ function split_with_extension_name($str, &$real_name, &$exten)
 
 
 if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['submit']) && $_POST['submit'] == "true") {
-     
+
     // echo '<pre>';
     // print_r($_FILES);
     // echo "error is<br>";
@@ -78,26 +78,24 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
     $no_of_file_uploaded = 0;
     include "password.php";
     for ($i = 0; $i < $no_of_file; $i++) {
-       
+
         $f_name = seo_friendly_url($_FILES["up_file"]["name"][$i]);
         $f_temp_name = $_FILES["up_file"]["tmp_name"][$i];
         $sub = trim($_POST['subject']);
         $unit  = trim($_POST['unit']);
         $cat = trim($_POST['cat']);
-    
+
         if ($sub == "0" || $unit == "0" || $cat == "0") {
             $error = "All Fields are Required";
-        break; 
+            break;
         } else if (empty(trim($_FILES['up_file']['name'][$i]))) {
             $error = "Please upload a valid file";
-             break; 
-        } else if ($_FILES['up_file']['size'][$i] > 40000000 || $_FILES['up_file']['size'][$i] <=0 ) {
-       
-            $error  .=  "File name : ".$_FILES['up_file']['name'][$i]." <br>";
-          
-        }
-         else {
-          
+            break;
+        } else if ($_FILES['up_file']['size'][$i] > 40000000 || $_FILES['up_file']['size'][$i] <= 0) {
+
+            $error  .=  "File name : " . $_FILES['up_file']['name'][$i] . " <br>";
+        } else {
+
             $file_name = "";
             $path_name = "./upload/" . $sub . "/unit-" . $unit . "/" . $cat;
             $real_name = "";
@@ -107,7 +105,7 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
             // echo "<br> exten = " . $exten;
 
             // $conn = new mysqli("localhost", "root", "", "my_db") or die("Not able to connect");
-         
+
             $table_name = "topic";
             $sql = "SElECT count(*) FROM " . $table_name;
             $result = $conn->query($sql);
@@ -204,27 +202,23 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
                 // unset($_FILES);
             } else {
                 $error .= "Not able to upload  File name = $file_name<br>";
-                $error .="because ".$conn->error;
+                $error .= "because " . $conn->error;
             }
-
-     
         }
-       
     }
- $conn->close();
+    $conn->close();
     // echo "result is"; 
     // print_r($result); 
     // echo "<br>conect error = " . $conn->error;
     if ($sucess != "") {
         $sucess  = "Uploaded $no_of_file_uploaded  Files Successfully<hr>" . $sucess;
     }
-    if($error !=""){
+    if ($error != "") {
 
-        if($error !="All Fields are Required" && $error !="Please upload a valid file"){
-        $error = "Error uploading ".($no_of_file - $no_of_file_uploaded)." Files <hr> ".$error; 
+        if ($error != "All Fields are Required" && $error != "Please upload a valid file") {
+            $error = "Error uploading " . ($no_of_file - $no_of_file_uploaded) . " Files <hr> " . $error;
+        }
     }
-    }
-   
 }
 // else {
 //     echo "<h1>not set nay files </h1>";
@@ -362,15 +356,45 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
         background-color: rgb(212, 212, 230);
         padding: 2px 10px;
     }
-   #message{
-              padding:23px ; 
-           }
+
+    #message {
+        padding: 23px;
+    }
+
+
+    #conform_box_content {
+        width: 500px;
+       border:2px solid yellow; 
+        margin: auto;
+
+     
+
+    }
+
+    #conform_box {
+        word-break: keep-all;
+        border: 1px solid black;
+        position: fixed;
+        width: 500px;
+        /* z-index: 1;; */
+        padding: 20px 10px;
+
+        top: -200px;
+
+        color: white;
+        background-color: rgba(0, 0, 0, 0.8);
+        transition: 0.5s;
+
+        margin: auto;
+
+    }
+
     @media screen and (min-width:1200px) {
-           #main_box{
-             width:1124px; 
-             margin:auto; 
-           }
-        
+        #main_box {
+            width: 1124px;
+            margin: auto;
+        }
+
     }
 
 
@@ -485,26 +509,6 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
             width: 100%;
         }
     }
-
-
-
-    #conform_box {
-        word-break: keep-all;
-        border: 1px solid black;
-        position: fixed;
-        width: 65%;
-        /* z-index: 1;; */
-        padding: 20px 10px;
-
-        top: -90%;
-        left: 20%;
-        color: white;
-        background-color: rgba(0, 0, 0, 0.8);
-        transition: 0.5s;
-        /* font-size:200px; */
-        margin: auto;
-
-    }
 </style>
 
 <body>
@@ -519,99 +523,99 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
     </div>
 
     <div id="main_box">
-   
-    <div id="form_boundary">
 
-        <form id="form" action="" method="POST" enctype="multipart/form-data">
+        <div id="form_boundary">
+
+            <form id="form" action="" method="POST" enctype="multipart/form-data">
 
 
-            <div id="head" class="box">
-                <header> Upload Documents
-                    <hr>
-                </header>
-            </div>
-            <div id="message" class="box" <?php
-                                            if ($error != "") {
-                                                echo '  >  <p style="color:red ;font-size:20px;">' . $error . '</p>';
-                                            } 
-                                            if($error =="" && $sucess !=""){
-                                                echo ">";
-                                            }
-                                            if ($sucess != "") {
-                                                echo '    <p style="color:green ;font-size:20px;">' . $sucess . '</p>';
-                                            } else if($error =="" && $sucess ==""){
-                                                echo 'style="display:none;">';
-                                            }
+                <div id="head" class="box">
+                    <header> Upload Documents
+                        <hr>
+                    </header>
+                </div>
+                <div id="message" class="box" <?php
+                                                if ($error != "") {
+                                                    echo '  >  <p style="color:red ;font-size:20px;">' . $error . '</p>';
+                                                }
+                                                if ($error == "" && $sucess != "") {
+                                                    echo ">";
+                                                }
+                                                if ($sucess != "") {
+                                                    echo '    <p style="color:green ;font-size:20px;">' . $sucess . '</p>';
+                                                } else if ($error == "" && $sucess == "") {
+                                                    echo 'style="display:none;">';
+                                                }
 
-                                            ?> </div> <div class="box">
-                <p>Topic *</p>
+                                                ?> </div> <div class="box">
+                    <p>Topic *</p>
 
-                <select name="subject" id="subject">
-                    <option selected hidden value="0"> Select </option>
-                    <option value="ds">Data Structure and Algorithms</option>
-                    <option value="de">Digital Electronics</option>
-                    <option value="ppl">Principles of Programming Languages</option>
-                    <option value="math">Mathamatics</option>
-                    <option value="os">Operating System</option>
+                    <select name="subject" id="subject">
+                        <option selected hidden value="0"> Select </option>
+                        <option value="ds">Data Structure and Algorithms</option>
+                        <option value="de">Digital Electronics</option>
+                        <option value="ppl">Principles of Programming Languages</option>
+                        <option value="math">Mathamatics</option>
+                        <option value="os">Operating System</option>
 
-                </select>
-            </div>
-            <div class="box">
-                <p>Unit *</p>
+                    </select>
+                </div>
+                <div class="box">
+                    <p>Unit *</p>
 
-                <select name="unit" id="unit">
-                    <option value="0" hidden selected>Select </option>
-                    <option value="1">UNIT-1</option>
-                    <option value="2">UNIT-2</option>
-                    <option value="3">UNIT-3</option>
-                    <option value="4">UNIT-4</option>
-                    <option value="5">UNIT-5</option>
-                    <option value="6">PRACTICAL</option>
-                </select>
-            </div>
-            <div class="box">
+                    <select name="unit" id="unit">
+                        <option value="0" hidden selected>Select </option>
+                        <option value="1">UNIT-1</option>
+                        <option value="2">UNIT-2</option>
+                        <option value="3">UNIT-3</option>
+                        <option value="4">UNIT-4</option>
+                        <option value="5">UNIT-5</option>
+                        <option value="6">PRACTICAL</option>
+                    </select>
+                </div>
+                <div class="box">
 
-                <p>Category * </p>
-                <select name="cat" id="cat">
-                    <option value="0" hidden> Select </option>
-                    <option value="note">Notes</option>
-                    <option value="book">Books</option>
-                    <option value="qp">Question </option>
-                    <option value="vd">Videos </option>
-                </select>
+                    <p>Category * </p>
+                    <select name="cat" id="cat">
+                        <option value="0" hidden> Select </option>
+                        <option value="note">Notes</option>
+                        <option value="book">Books</option>
+                        <option value="qp">Question </option>
+                        <option value="vd">Videos </option>
+                    </select>
 
-            </div>
-            <div class="box">
+                </div>
+                <div class="box">
 
-                <p>Select Files *</p>
+                    <p>Select Files *</p>
 
-                <br>
-                <button type="button" id="inp_but" onclick="test_fun()"> Add Files</button>
-             
-              
-                <input type="file" name="up_file[]" id="up_file_but" multiple onchange="show_name()" hidden>
-                <div id="file_name">
-                    <p class="file_name">No File Selected</p>
-                 
+                    <br>
+                    <button type="button" id="inp_but" onclick="test_fun()"> Add Files</button>
+
+
+                    <input type="file" name="up_file[]" id="up_file_but" multiple onchange="show_name()" hidden>
+                    <div id="file_name">
+                        <p class="file_name">No File Selected</p>
+
+                    </div>
+
+
                 </div>
 
 
-            </div>
+
+                <div id="button_box">
+                    <button id="sub_but" type="submit" name="submit" value="true"> Submit</button>
+                    <button id="del_but" type="submit" name="delete" value="true"> Delete</button>
+                    <button id="logout_but" type="submit" name="logout" value="true"> Logout</button>
+                </div>
 
 
-
-            <div id="button_box">
-                <button id="sub_but" type="submit" name="submit" value="true"> Submit</button>
-                <button id="del_but" type="submit" name="delete" value="true"> Delete</button>
-                <button id="logout_but" type="submit" name="logout" value="true"> Logout</button>
-            </div>
+            </form>
 
 
-        </form>
+        </div>
 
-
-    </div>
-         
     </div>
     <script>
         var inp_but = document.getElementById("inp_but");
@@ -625,8 +629,8 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
         var form = document.getElementById("form");
 
 
-        
- 
+
+
 
         function test_fun() {
 
@@ -637,11 +641,11 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
             file_name.innerHTML = "<p class='file_name' >  No Files Selected  <p>";
         }
 
-      del_but.addEventListener("click",function(){
-        //   console.log(up_file_but.files.length);
-          upfile_but.files.value=null; 
-        //   console.log(up_file_but.files.length);
-      });
+        del_but.addEventListener("click", function() {
+            //   console.log(up_file_but.files.length);
+            upfile_but.files.value = null;
+            //   console.log(up_file_but.files.length);
+        });
         sub_but.addEventListener("click", function() {
             document.body.style.cursor = "progress";
             conform_box.style.top = "20%";
@@ -656,27 +660,26 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
             if (up_file_but.files != null) {
 
                 var count = up_file_but.files.length;
-                var str_name=""; 
-                 var total_size = 0; 
+                var str_name = "";
+                var total_size = 0;
                 for (var i = 0; i < count; i++) {
-                     
+
                     if (up_file_but.files.item(i) != null && up_file_but.files.item(i).name != null) {
-                        if(up_file_but.files.item(i).size>40000000){
-                            str_name +=  "<p class='file_name' style='background-color:red; color:white'>" + up_file_but.files.item(i).name + " -- Too large file  <p>";
+                        if (up_file_but.files.item(i).size > 40000000) {
+                            str_name += "<p class='file_name' style='background-color:red; color:white'>" + up_file_but.files.item(i).name + " -- Too large file  <p>";
+                        } else if (up_file_but.files.item(i).size <= 0) {
+                            str_name += "<p class='file_name' style='background-color:red ;color:white'>" + up_file_but.files.item(i).name + " --Too small file  <p>";
+                        } else {
+                            str_name += "<p class='file_name' >" + up_file_but.files.item(i).name + " <p>";
                         }
-                        else if (up_file_but.files.item(i).size<=0){
-                            str_name +=  "<p class='file_name' style='background-color:red ;color:white'>" + up_file_but.files.item(i).name + " --Too small file  <p>";
-                     }else{
-                       str_name +=  "<p class='file_name' >" + up_file_but.files.item(i).name + " <p>";
-                        }
-                        total_size +=up_file_but.files.item(i).size; 
+                        total_size += up_file_but.files.item(i).size;
                     }
-                    
+
                 }
-                if(total_size>40000000){
-                    str_name +=  "<p class='file_name' style='background-color:red ;color:white' >Warning: Total File size : "+total_size+"Bytes. Sum of file size must   be smaller than 40000000Bytes or 40MB for Succesfull upload. <p>";
+                if (total_size > 40000000) {
+                    str_name += "<p class='file_name' style='background-color:red ;color:white' >Warning: Total File size : " + total_size + "Bytes. Sum of file size must   be smaller than 40000000Bytes or 40MB for Succesfull upload. <p>";
                 }
-                file_name.innerHTML = str_name;               
+                file_name.innerHTML = str_name;
                 conform_mess.textContent = " Uploading " + count + " Files. Please wait ....";
                 //  console.log(upfile_but.value);
             }

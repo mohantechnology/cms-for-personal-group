@@ -44,21 +44,21 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
     <title>Login Form</title>
 </head>
 
-<style>
+<style>  
+
+
     body {
 
         margin: 0px;
         padding: 0px;
         height: 100vh;
-        /* background-color: rgb(34, 34, 34); */
-        background-image: url(img3.jpg);
-        background-repeat: no-repeat;
+        background-image: linear-gradient(135deg, rgb(234, 230, 241), rgb(234, 230, 241) 40%, rgb(230, 250, 241)20%, blue);
+        background-image :url("bg_img.jpg"); 
         background-size: cover;
-
-
-        /* background-size: 100%; */
+        
 
     }
+
 
     #form_boundary {
 
@@ -72,7 +72,10 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
         top: 30px;
         border-radius: 3px;
         border-color: rgb(231, 221, 255);
+        /* background: linear-gradient(135deg, rgb(234, 230, 241), rgb(234, 230, 241) 40%, rgb(230, 250, 241)20%, blue); */
         /* opacity:0.9; */
+        height:200px; 
+  
 
 
 
@@ -109,8 +112,8 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
 
     button {
 
-        /* background-color: rgb(24, 145, 145); */
-        background-color: black;
+        /* background-color:; */
+        background-color: #191010; 
         color: black;
         font-size: 15px;
         width: 83%;
@@ -145,7 +148,7 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
     }
 </style>
 
-<body>
+<body id="body">
 
 
     <div id="form_boundary">
@@ -158,10 +161,8 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
             <br><input required type="password"  name="password" placeholder="Enter your Password">
             <br><button style="color:whitesmoke" type="submit" name="login">Log In</button>
 
-            <a href="recover_password_php.php">
-                <p>Forgot password?</p>
-            </a>
-            <p style="color:white">Don't have an account? &nbsp;<a href="registration_form.php">Sign up</a></p>
+           
+         
 
         </form>
 
@@ -175,6 +176,10 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
             if(message)
             message.style.display = "none";
         }, (5000));
+
+
+
+
     </script>
 </body>
 

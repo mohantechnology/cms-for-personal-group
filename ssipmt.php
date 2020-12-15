@@ -110,7 +110,7 @@
 
      }
      #main_box{
-          width:1024px; 
+          width:1124px; 
           margin:auto; 
     
           
