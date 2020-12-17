@@ -53,8 +53,8 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
         padding: 0px;
         height: 100vh;
         background-image: linear-gradient(135deg, rgb(234, 230, 241), rgb(234, 230, 241) 40%, rgb(230, 250, 241)20%, blue);
-        background-image :url("bg_img.jpg"); 
-        background-size: cover;
+        /* background-image :url("bg_img.jpg"); 
+        background-size:cover; */
         
 
     }
@@ -74,7 +74,7 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
         border-color: rgb(231, 221, 255);
         /* background: linear-gradient(135deg, rgb(234, 230, 241), rgb(234, 230, 241) 40%, rgb(230, 250, 241)20%, blue); */
         /* opacity:0.9; */
-        height:200px; 
+        /* height:200px;  */
   
 
 
@@ -117,6 +117,7 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
         color: black;
         font-size: 15px;
         width: 83%;
+       margin-bottom:10px;
     }
 
     button:hover {
@@ -160,6 +161,7 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
             <br><input required type="text" name="mobile_no" placeholder="Enter your Phone Number">
             <br><input required type="password"  name="password" placeholder="Enter your Password">
             <br><button style="color:whitesmoke" type="submit" name="login">Log In</button>
+            <br><button id="back_but" style="color:whitesmoke" type="button" name="back">Back</button>
 
            
          
@@ -172,11 +174,16 @@ if (isset($_SESSION['message']) &&  $_SESSION['message'] == "admin") {
     </div>
     <script>
         var message = document.getElementById("message");
+        var back_but = document.getElementById("back_but"); 
         setTimeout(() => {
             if(message)
             message.style.display = "none";
         }, (5000));
 
+         back_but.addEventListener("click",()=>{
+             location="./ssipmt.php"; 
+          
+         })
 
 
 

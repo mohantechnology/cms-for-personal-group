@@ -32,7 +32,7 @@ echo '<!DOCTYPE html>
 <head>
      <title>Select File</title>
      <meta name="description" content="Notes of 3rd Semester">
-
+     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 
 
 </head>

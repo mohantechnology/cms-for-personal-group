@@ -53,6 +53,8 @@ function split_with_extension_name($str, &$real_name, &$exten)
         $real_name = $str[$len - 1] . $real_name;
         $len--;
     }
+
+    $exten = strtolower($exten);
     return 0;
 }
 
@@ -76,6 +78,8 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
     $no_of_file = count($_FILES["up_file"]["name"]);
     // echo "<br> Totoal no of ifle is: " . $no_of_file;
     $no_of_file_uploaded = 0;
+    $file_extension_arr["php"]= 1; 
+    $file_extension_arr["js"]= 1;
     include "password.php";
     for ($i = 0; $i < $no_of_file; $i++) {
 
@@ -96,113 +100,127 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
             $error  .=  "File name : " . $_FILES['up_file']['name'][$i] . " <br>";
         } else {
 
+
             $file_name = "";
             $path_name = "./upload/" . $sub . "/unit-" . $unit . "/" . $cat;
             $real_name = "";
             $exten = "";
             split_with_extension_name($f_name, $real_name, $exten);
             // echo "<br> realname =$real_name";
+            // echo" <br> fanem = ".$f_name; 
             // echo "<br> exten = " . $exten;
-
-            // $conn = new mysqli("localhost", "root", "", "my_db") or die("Not able to connect");
-
-            $table_name = "topic";
-            $sql = "SElECT count(*) FROM " . $table_name;
-            $result = $conn->query($sql);
-
-            //create table  topic if not exists 
-            // echo '<pre>'.print_r($result).'</pre>'; 
-            // echo  '<br>connection error is:'.$conn->error."end";
-            if ($result == "") {
-                // echo "<br>creating table table not existt ";
-                $sql = "CREATE table  $table_name ( topic_name varchar(100) ,unit varchar(10))";
-                $result = $conn->query($sql);
-                // if ($result != "") {
-                //     echo "<br>created table " . $table_name . " successfulll<br>";
-                // } else {
-                //     echo "<br>not created table<br>";
-                // }
-            }
-            $table_name = $sub . $unit;
-            //create table sub+unit if not exist
-            $sql = "SElECT count(*) FROM " . $table_name;
-            $result = $conn->query($sql);
-            // if ($result == "" && $conn->error == "Table 'my_db." . $table_name . "' doesn't exist") {
-            if ($result == "") {
-                $sql = "CREATE table  $table_name ( cat varchar(100) , path_name varchar(300))";
-                $result = $conn->query($sql);
-                // if ($result != "") {
-                //     // echo "created table " . $table_name . " successfulll<br>";
-                // } else {
-                //     // echo "not created table<br>";
-                // }
-            }
-
-
-            //insert into table topic
-            $sql = "SELECT * FROM  topic where (topic_name='$sub' and unit='$unit')";
-
-            $result = $conn->query($sql);
-            // echo '<pre>';
-            // echo "<br><br>$sql";
-            // print_r($result);
-            // echo '</pre>';
-            if ($result->num_rows === 0) {
-                $sql = "INSERT into topic values( '$sub','$unit')";
-                $result = $conn->query($sql);
-                // echo "<br>result of insert new in topic ";
-                // print($result);
-            }
-            // insert into sub 
-
-            $sql = "SELECT * FROM  $table_name where (cat='" . $cat . "' AND path_name='" . $path_name . "/$real_name.$exten" . "')";
-            $result = $conn->query($sql);
-            $file_name  = "$real_name.$exten";
-
-            if ($result->num_rows != 0) {
-
-                $count = 0;
-                while ($result->num_rows != 0) {
-                    $count++;
-                    $sql = "SELECT * FROM  $table_name where (cat='" . $cat . "' AND path_name='" . $path_name . "/$real_name(" . $count . ").$exten')";
-                    // echo "<br>$sql";
-                    $result = $conn->query($sql);
-                    // echo "<br> count = " . $count;
-                    // echo "--";
-                    // print_r($result);
-                    // echo "--";
-                }
-                $file_name  = $real_name . "(" . $count . ").$exten";
-                // echo "<br>----->$file_name";
-            }
-
-            $sql = "INSERT into $table_name values( '" . $cat . "','" . $path_name . "/$file_name')";
-
-            // echo "<br>$sql";
-            $result = $conn->query($sql);
-            // if ($result != "") {
-            //     echo "<br>result of insert new in topic ";
-            // }
-            // print_r($result);
-            if (file_exists($path_name) == false || is_dir($path_name) == false) {
-                mkdir($path_name, 0777, true);
-                // if (is_dir($path_name)) {
-                //     // echo  "this is directoryu ";
-                // } else {
-                //     echo "<br>this is not directory";
-                // }
-                // echo "<br> created new path ";
-            }
-
-            // echo "<br>file name si: " . $file_name;
-            if (move_uploaded_file($f_temp_name, $path_name . "/" . $file_name)) {
-                $sucess .=  "File name : '$file_name' <br>";;
-                $no_of_file_uploaded++;
-
-                // unset($_FILES);
+            // echo "<br>"; 
+            //check if file  file extension  is valid 
+        
+            //    echo "arr is set " .$file_extension_arr[$exten] ;
+            //    echo "<br> is set return ".isset($file_extension_arr[$exten])."<br>"; 
+            if (isset($file_extension_arr[$exten])  ) {
+                // echo "file extesn set " . $file_extension_arr[$exten];
+                $error .= "Not able to upload  File name = '$f_name'<br>";
             } else {
-                $error .= "Not able to upload  File name = $file_name<br>";
-                $error .= "because " . $conn->error;
+                // echo "file exten not set ";
+        
+
+                // $conn = new mysqli("localhost", "root", "", "my_db") or die("Not able to connect");
+
+                $table_name = "topic";
+                $sql = "SElECT count(*) FROM " . $table_name;
+                $result = $conn->query($sql);
+
+                //create table  topic if not exists 
+                // echo '<pre>'.print_r($result).'</pre>'; 
+                // echo  '<br>connection error is:'.$conn->error."end";
+                if ($result == "") {
+                    // echo "<br>creating table table not existt ";
+                    $sql = "CREATE table  $table_name ( topic_name varchar(100) ,unit varchar(10))";
+                    $result = $conn->query($sql);
+                    // if ($result != "") {
+                    //     echo "<br>created table " . $table_name . " successfulll<br>";
+                    // } else {
+                    //     echo "<br>not created table<br>";
+                    // }
+                }
+                $table_name = $sub . $unit;
+                //create table sub+unit if not exist
+                $sql = "SElECT count(*) FROM " . $table_name;
+                $result = $conn->query($sql);
+                // if ($result == "" && $conn->error == "Table 'my_db." . $table_name . "' doesn't exist") {
+                if ($result == "") {
+                    $sql = "CREATE table  $table_name ( cat varchar(100) , path_name varchar(300))";
+                    $result = $conn->query($sql);
+                    // if ($result != "") {
+                    //     // echo "created table " . $table_name . " successfulll<br>";
+                    // } else {
+                    //     // echo "not created table<br>";
+                    // }
+                }
+
+
+                //insert into table topic
+                $sql = "SELECT * FROM  topic where (topic_name='$sub' and unit='$unit')";
+
+                $result = $conn->query($sql);
+                // echo '<pre>';
+                // echo "<br><br>$sql";
+                // print_r($result);
+                // echo '</pre>';
+                if ($result->num_rows === 0) {
+                    $sql = "INSERT into topic values( '$sub','$unit')";
+                    $result = $conn->query($sql);
+                    // echo "<br>result of insert new in topic ";
+                    // print($result);
+                }
+                // insert into sub 
+
+                $sql = "SELECT * FROM  $table_name where (cat='" . $cat . "' AND path_name='" . $path_name . "/$real_name.$exten" . "')";
+                $result = $conn->query($sql);
+                $file_name  = "$real_name.$exten";
+
+                if ($result->num_rows != 0) {
+
+                    $count = 0;
+                    while ($result->num_rows != 0) {
+                        $count++;
+                        $sql = "SELECT * FROM  $table_name where (cat='" . $cat . "' AND path_name='" . $path_name . "/$real_name(" . $count . ").$exten')";
+                        // echo "<br>$sql";
+                        $result = $conn->query($sql);
+                        // echo "<br> count = " . $count;
+                        // echo "--";
+                        // print_r($result);
+                        // echo "--";
+                    }
+                    $file_name  = $real_name . "(" . $count . ").$exten";
+                    // echo "<br>----->$file_name";
+                }
+
+                $sql = "INSERT into $table_name values( '" . $cat . "','" . $path_name . "/$file_name')";
+
+                // echo "<br>$sql";
+                $result = $conn->query($sql);
+                // if ($result != "") {
+                //     echo "<br>result of insert new in topic ";
+                // }
+                // print_r($result);
+                if (file_exists($path_name) == false || is_dir($path_name) == false) {
+                    mkdir($path_name, 0777, true);
+                    // if (is_dir($path_name)) {
+                    //     // echo  "this is directoryu ";
+                    // } else {
+                    //     echo "<br>this is not directory";
+                    // }
+                    // echo "<br> created new path ";
+                }
+
+                // echo "<br>file name si: " . $file_name;
+                if (move_uploaded_file($f_temp_name, $path_name . "/" . $file_name)) {
+                    $sucess .=  "File name : '$file_name' <br>";;
+                    $no_of_file_uploaded++;
+
+                    // unset($_FILES);
+                } else {
+                    $error .= "Not able to upload  File name = $file_name<br>";
+                    $error .= "because " . $conn->error;
+                }
             }
         }
     }
@@ -238,6 +256,7 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 
     <title>Upload Document</title>
 </head>
@@ -364,10 +383,10 @@ if (isset($_FILES['up_file']) && $_FILES['up_file']['size']  && isset($_POST['su
 
     #conform_box_content {
         width: 500px;
-       border:2px solid yellow; 
+        /* border:2px solid yellow;  */
         margin: auto;
 
-     
+
 
     }
 

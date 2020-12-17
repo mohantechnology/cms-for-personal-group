@@ -4,7 +4,7 @@
 <head>
      <title>SSIPMT 3rd SEM NOTES</title>
      <meta name="description" content="Notes of 3rd Semester">
-
+ <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 
 
 </head>
