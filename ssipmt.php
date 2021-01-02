@@ -112,7 +112,7 @@
      #main_box{
           width:1124px; 
           margin:auto; 
-    
+          text-align:center; 
           
      }
 
@@ -123,6 +123,8 @@
           #main_box{
           width:100%; 
           margin:auto; 
+          text-align:center; 
+          padding-left:5px; 
 
      }
           .box {
@@ -151,6 +153,7 @@
 
           .head {
                font-size: 30px;
+               text-align: center;
           }
 
           #admin_but {
