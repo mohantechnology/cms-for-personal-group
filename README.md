@@ -1,5 +1,5 @@
 Content Management System <br> Html, Css ,Javascript, PHP, MariaDB <br>
-<!-- <button> <h2> <a href="http://machen.epizy.com/man_ka_website/ssipmt.php" target="_blank"><img src="https://cdn.glitch.com/89f82df8-eb2c-4c0e-883d-494391c85865%2FScreenshot%20(2511).png?v=1607934281911" alt="" width="200px"></a></h2> </button> -->
+<button> <h2> <a href="http://machen.epizy.com/man_ka_website/ssipmt.php" target="_blank"><img src="https://cdn.glitch.com/89f82df8-eb2c-4c0e-883d-494391c85865%2FScreenshot%20(2511).png?v=1607934281911" alt="" width="200px"></a></h2> </button>
 
 <h1> Configuration</h1> <hr width="800" align="left"> <ul> <li>Configure your database detail in <b>config_db.php </b> file <p>Assign your database name to $__db_name. </p> 
 
